@@ -1,14 +1,43 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset='UTF-8'>
+
     <title>Openblog</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
 
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">OpenBlog</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Übersicht</a></li>
+          <li><a href="/admin">Admin</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="stats">Artikel: 10</li>
+          <li class="stats">Kommentare: 25</li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
   <body>
-    <%= yield %>
+    <div class="container">
+      <%= yield %>
+    </div>
+
+    <%= javascript_include_tag 'application' %>
   </body>
 </html>

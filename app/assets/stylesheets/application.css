@@ -10,6 +10,8 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require 0-vendor/_normalize.css
+ *= require 0-vendor/_bootstrap.min.css
  *= require_tree .
  *= require_self
  */
