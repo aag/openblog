@@ -1,0 +1,41 @@
+<h1>Artikel</h1>
+
+<div class="new-post-wrapper">
+  <%= link_to('Artikel erstellen', new_post_path, class: 'btn btn-primary') %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Titel</th>
+      <th>Status</th>
+      <th>Aktion</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @posts.each do |post| %>
+    <tr>
+      <th scope="row"><%= post.id %></th>
+      <td>
+        <% if post.published? %>
+          <%= link_to(post.title, post_path(post)) %>
+        <% else %>
+          <%= post.title %>
+        <% end %>
+      </td>
+      <td><%= published_status(post) %></td>
+      <td>
+        <% if post.unpublished? %>
+            <%= form_tag(publish_post_path(post), method: 'post') do %>
+              <%= csrf_meta_tags %>
+              <button class="btn btn-default btn-xs" type="submit">Veröffentlichen</button>
+            <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

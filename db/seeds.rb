@@ -20,7 +20,7 @@ END_SCHILLER
 
 Post.create(
     title: 'Friedrich Schiller',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: schiller_body
 )
 
@@ -34,7 +34,7 @@ END_FRISCH
 
 Post.create(
     title: 'Max Frisch',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: frisch_body
 )
 
@@ -66,7 +66,7 @@ END_GRASS
 
 Post.create(
     title: 'Günter Grass',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: grass_body
 )
 
@@ -76,7 +76,7 @@ END_BRECHT
 
 Post.create(
     title: 'Bertolt Brecht',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: brecht_body
 )
 
@@ -86,7 +86,7 @@ END_WALSER
 
 Post.create(
     title: 'Martin Walser',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: walser_body
 )
 
@@ -96,7 +96,7 @@ END_HOELDERLIN
 
 Post.create(
     title: 'Johann Christian Friedrich Hölderlin',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: hoelderlin_body
 )
 
@@ -110,7 +110,7 @@ END_BORCHERT
 
 Post.create(
     title: 'Wolfgang Borchert',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: borchert_body
 )
 
@@ -120,7 +120,7 @@ END_BACHMANN
 
 Post.create(
     title: 'Ingeborg Bachmann',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: bachmann_body
 )
 
@@ -134,7 +134,7 @@ END_RILKE
 
 Post.create(
     title: 'Rainer Maria Rilke',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: rilke_body
 )
 
@@ -154,7 +154,7 @@ END_HOFMANNSTHAL
 
 Post.create(
     title: 'Hugo von Hofmannsthal',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: hoffmansthal_body
 )
 
@@ -170,6 +170,6 @@ END_DOEBLIN
 
 Post.create(
     title: 'Alfred Döblin',
-    published_at: DateTime.current,
+    published_at: Time.now,
     body: doeblin_body
 )

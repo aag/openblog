@@ -22,8 +22,13 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
+          <% if controller_name != 'admin' %>
           <li class="active"><a href="/">Übersicht</a></li>
           <li><a href="/admin">Admin</a></li>
+        <% else %>
+          <li><a href="/">Übersicht</a></li>
+          <li class="active"><a href="/admin">Admin</a></li>
+          <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="stats">Artikel: <%= @num_posts %></li>
@@ -35,6 +40,10 @@
 
   <body>
     <div class="container">
+      <% flash.each do |key, value| %>
+          <%= content_tag :div, value, class: "alert alert-#{key}" %>
+      <% end %>
+
       <%= yield %>
     </div>
 
