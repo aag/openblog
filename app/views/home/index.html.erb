@@ -1,9 +1,13 @@
-<div class="panel panel-default post">
-  <div class="panel-heading">
-    <h3 class="panel-title">Post</h3>
+<% @posts.each do |post| %>
+  <div class="panel panel-default post">
+    <div class="panel-heading">
+      <h3 class="panel-title"><%= post.title %></h3>
+    </div>
+    <div class="panel-body">
+      <%= simple_format(post.body) %>
+    </div>
+    <div class="panel-footer post__footer"><%= post.published_at.strftime('%e %B, %Y') %></div>
   </div>
-  <div class="panel-body">
-    Post Body
-  </div>
-  <div class="panel-footer post__footer">18. Oktober 2016</div>
-</div>
+<% end %>
+
+
