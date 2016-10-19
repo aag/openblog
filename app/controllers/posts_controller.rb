@@ -3,7 +3,7 @@ class PostsController < ApplicationController
     @post = Post.find_by_id(params[:id])
 
     if @post.nil? or @post.unpublished?
-      raise ActionController::RoutingError.new('Der Artikel wurde nicht gefunden')
+      render status: 404, plain: 'Fehler: Der Artikel wurde nicht gefunden'
     end
   end
 

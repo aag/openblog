@@ -2,7 +2,7 @@ require 'test_helper'
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
   test 'should get index' do
-    Post.new(title: 'Test Post', body: 'Test Body', published_at: Time.now)
+    Post.new(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
 
     get home_index_url
     assert_response :success
