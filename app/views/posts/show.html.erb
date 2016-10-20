@@ -8,7 +8,7 @@
   <div class="panel-footer post__footer"><%= @post.published_at.strftime('%e %B, %Y') %></div>
 </div>
 
-<% @comments.each do |comment| %>
+<% @post.comments.each do |comment| %>
     <div class="panel panel-info comment">
       <div class="panel-heading">
         <h3 class="panel-title"><%= comment.created_at.strftime('%e %B, %Y %H:%M') %></h3>
@@ -25,11 +25,7 @@
       <%= link_to('Kommentar schreiben', '#', class: 'btn btn-primary js-show-comment-form') %>
     </div>
   </div>
-  <% if @comment.errors.any? %>
-  <div class="row comment-creator__form-wrapper js-form-wrapper">
-  <% else %>
-  <div class="row comment-creator__form-wrapper js-form-wrapper" style="display: none">
-  <% end %>
+  <div class="row comment-creator__form-wrapper js-form-wrapper" <% if @comment.errors.none? %>style="display: none"<% end %>>
     <div class="col-md-6 col-md-push-6">
       <%= simple_form_for @comment do |f| %>
         <%= f.hidden_field :post_id, :value => @post.id %>
