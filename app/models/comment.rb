@@ -26,14 +26,14 @@ class Comment < ApplicationRecord
   private
 
   def max_comments_per_post
-    if num_comments_on_post >= 10
-      errors.add(:body, 'ist über das Limit für diesen Artikel (max. 10 Kommentare)')
+    if num_comments_on_post >= Post::MAX_COMMENTS
+      errors.add(:body, "ist über das Limit für diesen Artikel (max. #{Post::MAX_COMMENTS} Kommentare)")
     end
   end
 
   def max_comments_per_day
-    if num_comments_today >= 2
-      errors.add(:body, 'ist über das Limit für heute für diesen Artikel (max. 2 Kommentare)')
+    if num_comments_today >= Post::MAX_DAILY_COMMENTS
+      errors.add(:body, "ist über das Limit für heute für diesen Artikel (max. #{Post::MAX_DAILY_COMMENTS} Kommentare)")
     end
   end
 
@@ -43,9 +43,9 @@ class Comment < ApplicationRecord
     end
 
     if new_record?
-      post.comments.ham.count
+      post.num_comments
     else
-      post.comments.ham.where('id != :self_id', {self_id: id}).count
+      post.num_comments_excluding(self)
     end
   end
 
@@ -54,21 +54,10 @@ class Comment < ApplicationRecord
       return 0
     end
 
-    beginning_of_day = Time.zone.now.beginning_of_day
-    end_of_day = beginning_of_day.end_of_day
-
     if new_record?
-      post.comments
-          .ham
-          .where('created_at >= :start_date AND created_at <= :end_date',
-                 {start_date: beginning_of_day, end_date: end_of_day})
-          .count
+      post.num_comments_today
     else
-      post.comments
-          .ham
-          .where('created_at >= :start_date AND created_at <= :end_date AND id != :self_id',
-                 {start_date: beginning_of_day, end_date: end_of_day, self_id: id})
-          .count
+      post.num_comments_today_excluding(self)
     end
   end
 end

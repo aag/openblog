@@ -23,7 +23,11 @@ class AdminController < ApplicationController
 
   def mark_ham
     comment = Comment.find(params[:id])
-    comment.mark_as_ham!
+    if !comment.post.accepting_new_comments?
+      flash[:danger] = 'Status-Änderung fehlgeschlagen: der Artikel darf im Moment keine neue Kommentare bekommen'
+    else
+      comment.mark_as_ham!
+    end
 
     redirect_to(admin_url)
   end
