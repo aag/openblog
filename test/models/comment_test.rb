@@ -33,9 +33,62 @@ class CommentTest < ActiveSupport::TestCase
     assert comment.valid?
   end
 
+  test 'should be valid with 5 single-character words' do
+    post = Post.create(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
+    comment = Comment.new(post: post, body: 'a a a a a', spam: false)
+
+    assert comment.valid?
+  end
+
   test 'should be invalid with empty body' do
     post = Post.create(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
     comment = Comment.new(post: post, body: '', spam: false)
+
+    assert_not comment.valid?
+  end
+
+  test 'should allow 2 comments per post in one day' do
+    travel_to Time.new(2016, 10, 1, 12, 0, 0) do
+      post = Post.create(title: 'Test Post Title', body: 'Test Body', published_at: Time.zone.now)
+      Comment.create(post: post, body: 'Test comment body text 1')
+      comment = Comment.new(post: post, body: 'Test comment body text 2')
+
+      assert comment.valid?
+    end
+  end
+
+  test 'should not allow 3 comments per post in one day' do
+    travel_to Time.new(2016, 10, 1, 12, 0, 0) do
+      post = Post.create(title: 'Test Post Title', body: 'Test Body', published_at: Time.zone.now)
+      2.times do |i|
+        Comment.create(post: post, body: "Test comment body text #{i}")
+      end
+      comment = Comment.new(post: post, body: 'Test comment body text 3')
+
+      assert_not comment.valid?
+    end
+  end
+
+  test 'should allow 10 comments per post' do
+    post = Post.create(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
+    for i in 1..9
+      travel_to Time.new(2016, 10, i, 01, 01, 0) do
+        Comment.create(post: post, body: "Test comment body text #{i}")
+      end
+    end
+    comment = Comment.new(post: post, body: 'Test comment body text 10')
+
+    assert comment.valid?
+  end
+
+  test 'should disallow more than 10 comments per post' do
+    post = Post.create(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
+    for i in 1..10
+      travel_to Time.new(2016, 10, i, 01, 01, 0) do
+        Comment.create(post: post, body: "Test comment body text #{i}")
+      end
+    end
+    comment = Comment.new(post: post, body: 'Test comment body text 11')
 
     assert_not comment.valid?
   end
