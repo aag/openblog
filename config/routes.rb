@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:show, :new, :create]
 
+  get 'feed/posts', to: 'feed#posts'
+
   get 'admin', to: 'admin#index'
   post 'admin/post/:id/publish', to: 'admin#publish_post', as: 'publish_post'
 
