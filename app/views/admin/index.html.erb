@@ -16,25 +16,25 @@
     </thead>
     <tbody>
     <% @posts.each do |post| %>
-    <tr>
-      <td scope="row"><%= post.id %></td>
-      <td>
-        <% if post.published? %>
-          <%= link_to(post.title, post_path(post)) %>
-        <% else %>
-          <%= post.title %>
-        <% end %>
-      </td>
-      <td><%= published_status(post) %></td>
-      <td>
-        <% if post.unpublished? %>
-            <%= form_tag(publish_post_path(post), method: 'post') do %>
-              <%= csrf_meta_tags %>
-              <button class="btn btn-default btn-xs" type="submit">Veröffentlichen</button>
+        <tr>
+          <td scope="row"><%= post.id %></td>
+          <td>
+            <% if post.published? %>
+                <%= link_to(post.title, post_path(post)) %>
+            <% else %>
+                <%= post.title %>
             <% end %>
-        <% end %>
-      </td>
-    </tr>
+          </td>
+          <td><%= published_status(post) %></td>
+          <td>
+            <% if post.unpublished? %>
+                <%= form_tag(publish_post_path(post), method: 'post') do %>
+                    <%= csrf_meta_tags %>
+                    <button class="btn btn-default btn-xs" type="submit">Veröffentlichen</button>
+                <% end %>
+            <% end %>
+          </td>
+        </tr>
     <% end %>
     </tbody>
   </table>
@@ -65,7 +65,7 @@
             <% end %>
           </td>
           <td><%= truncate(comment.body, :length => 50) %></td>
-          <td><%= comment.spam? %></td>
+          <td><%= spam_status(comment) %></td>
           <td>
             <% if comment.spam? %>
                 <%= form_tag(ham_comment_path(comment), method: 'post') do %>

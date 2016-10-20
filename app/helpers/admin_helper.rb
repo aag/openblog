@@ -6,4 +6,12 @@ module AdminHelper
       'Entwurf'
     end
   end
+
+  def spam_status(comment)
+    if comment.spam?
+      'spam'
+    else
+      'nicht spam'
+    end
+  end
 end
