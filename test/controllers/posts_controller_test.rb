@@ -39,4 +39,18 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     error_fields = css_select('.has-error')
     assert_equal(1, error_fields.count)
   end
+
+  test 'should display a maximum of 10 comments on the overview page' do
+    post = Post.create(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
+    for i in 1..11
+      travel_to Time.new(2016, 10, i, 01, 01, 0) do
+        Comment.create(post: post, body: "Test comment body text #{i}")
+      end
+    end
+
+    get posts_overview_url
+
+    comments = css_select('.mini-comment')
+    assert_equal(10, comments.count)
+  end
 end

@@ -24,10 +24,10 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <% if controller_name == 'home' %>
-          <li class="active"><a href="/">Übersicht</a></li>
+        <% if controller_name == 'posts' && action_name == 'overview' %>
+          <li class="active"><a href="<%= posts_overview_path %>">Artikelübersicht</a></li>
         <% else %>
-          <li><a href="/">Übersicht</a></li>
+          <li><a href="<%= posts_overview_path %>">Artikelübersicht</a></li>
         <% end %>
 
         <% if controller_name == 'admin' %>

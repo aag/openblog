@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:show, :new, :create]
   post '/posts/:id/comments', to: 'posts#create_comment', as: 'comments'
+  get '/posts', to: 'posts#overview', as: 'posts_overview'
 
   get 'feed/posts', to: 'feed#posts'
 

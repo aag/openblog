@@ -36,4 +36,14 @@ class PostsController < ApplicationController
       render :show
     end
   end
+
+  def overview
+    @posts = Post.published
+                 .order(published_at: :desc)
+
+    max_visible_comments = 10
+    @comments = Comment.ham
+                    .order(created_at: :desc)
+                    .limit(max_visible_comments)
+  end
 end

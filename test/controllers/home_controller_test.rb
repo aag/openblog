@@ -18,15 +18,4 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     posts = css_select('.post')
     assert_equal(3, posts.count)
   end
-
-  test 'should display a maximum of 10 posts on the index page' do
-    11.times do |i|
-      Post.create(title: "Post Number #{i}", body: "Body ##{i}", published_at: Time.now)
-    end
-
-    get home_index_url
-
-    posts = css_select('.post')
-    assert_equal(10, posts.count)
-  end
 end
