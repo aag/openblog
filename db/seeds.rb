@@ -168,8 +168,20 @@ Die Metropole Berlin wurde Döblins eigentliche Heimat. Er schloss sich dem Stur
 1933 musste der Jude und Sozialist Döblin aus Deutschland flüchten, kehrte nach Ende des Zweiten Weltkrieges zurück, um Deutschland 1953 erneut resigniert zu verlassen. Große Teile seines literarischen Schaffens, darunter die Amazonas-Trilogie, die Novembertetralogie und der letzte Roman Hamlet oder Die lange Nacht nimmt ein Ende werden der Exil-Literatur zugeordnet. 1941 konvertierte er zum katholischen Glauben, bereits 1936 hatte Döblin die französische Staatsbürgerschaft angenommen.
 END_DOEBLIN
 
-Post.create(
+doeblin_post = Post.create(
     title: 'Alfred Döblin',
     published_at: Time.now,
     body: doeblin_body
+)
+
+Comment.create(
+  post: doeblin_post,
+  body: 'Als viertes Kind des Ehepaares Max und Sophie Döblin wurde er am 10. August 1878 in Stettin geboren.',
+  spam: false
+)
+
+Comment.create(
+    post: doeblin_post,
+    body: 'would you like to know your future? I’m revealing your future. Something extraOrdinary is about to happen to you. Read your message before it gets deleted',
+    spam: true
 )

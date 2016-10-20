@@ -13,8 +13,19 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
 
     get admin_url
 
-    rows = css_select('tr')
+    rows = css_select('.posts-table tr')
     assert_equal(4, rows.count)
+  end
+
+  test 'should display all comments' do
+    post = Post.create(title: 'Test Draft Post', body: 'Body', published_at: nil)
+    Comment.create(post: post, body: 'Test comment body test text', spam: false)
+    Comment.create(post: post, body: 'Test comment body test text', spam: true)
+
+    get admin_url
+
+    rows = css_select('.comments-table tr')
+    assert_equal(3, rows.count)
   end
 
   test 'should display buttons for draft posts' do
@@ -41,6 +52,18 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
 
     post.reload
     assert(post.published?)
+  end
+
+  test 'should mark as spam when button clicked' do
+    post = Post.create(title: 'Test Draft Post', body: 'Body', published_at: nil)
+    comment = Comment.create(post: post, body: 'Test comment body test text', spam: false)
+
+    post spam_comment_path(comment)
+
+    assert_redirected_to admin_path
+
+    comment.reload
+    assert comment.spam?
   end
 
 end

@@ -3,7 +3,7 @@ require 'test_helper'
 class CommentTest < ActiveSupport::TestCase
   test 'a comment can find its post' do
     post = Post.new(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
-    comment = Comment.new(post: post, body: 'Test comment body', spam: false)
+    comment = Comment.new(post: post, body: 'Test comment body test text', spam: false)
 
     assert_equal(post, comment.post)
   end
@@ -91,5 +91,28 @@ class CommentTest < ActiveSupport::TestCase
     comment = Comment.new(post: post, body: 'Test comment body text 11')
 
     assert_not comment.valid?
+  end
+
+  test 'ham is the opposite of spam' do
+    post = Post.new(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
+    comment = Comment.new(post: post, body: 'Test comment body test text', spam: false)
+
+    assert_equal(comment.ham?, !comment.spam?)
+  end
+
+  test 'mark_as_spam! changes spam to true' do
+    post = Post.new(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
+    comment = Comment.new(post: post, body: 'Test comment body test text', spam: false)
+    comment.mark_as_spam!
+
+    assert comment.spam?
+  end
+
+  test 'mark_as_ham! changes ham to true' do
+    post = Post.new(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
+    comment = Comment.new(post: post, body: 'Test comment body test text', spam: true)
+    comment.mark_as_ham!
+
+    assert comment.ham?
   end
 end

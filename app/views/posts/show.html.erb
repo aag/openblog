@@ -8,7 +8,7 @@
   <div class="panel-footer post__footer"><%= @post.published_at.strftime('%e %B, %Y') %></div>
 </div>
 
-<% @post.comments.each do |comment| %>
+<% @post.comments.ham.each do |comment| %>
     <div class="panel panel-info comment">
       <div class="panel-heading">
         <h3 class="panel-title"><%= comment.created_at.strftime('%e %B, %Y %H:%M') %></h3>
