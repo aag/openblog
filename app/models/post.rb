@@ -1,10 +1,12 @@
 class Post < ApplicationRecord
+  has_many :comments, inverse_of: :post
+
   validates :title,
             presence: { message: 'ist ein Pflichtfeld' },
             length: {
                 in: 10..50,
-                too_short: 'ist zu kurz (Mindestlänge 10 Zeichen)',
-                too_long: 'ist zu lang (Maximallänge 50 Zeichen)'
+                too_short: 'ist zu kurz (min. 10 Zeichen)',
+                too_long: 'ist zu lang (max. 50 Zeichen)'
             }
   validates :body, presence: { message: 'ist ein Pflichtfeld' }
 

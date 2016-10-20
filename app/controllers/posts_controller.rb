@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   def show
     @post = Post.find_by_id(params[:id])
+    @comments = @post.comments
+    @comment = Comment.new
 
     if @post.nil? or @post.unpublished?
       render status: 404, plain: 'Fehler: Der Artikel wurde nicht gefunden'
@@ -20,6 +22,20 @@ class PostsController < ApplicationController
     else
       flash[:danger] = 'Fehler beim Erstellen des Artikels'
       render :new
+    end
+  end
+
+  def create_comment
+    @comment = Comment.new(params.require(:comment).permit(:body, :post_id))
+    @post = Post.find_by_id(params[:id])
+    @comments = @post.comments
+
+    if @comment.save
+      flash[:success] = 'Kommentar wurde erfolgreich erstellt'
+      redirect_to post_path(@post)
+    else
+      flash[:danger] = 'Fehler beim Erstellen des Kommentars'
+      render :show
     end
   end
 end

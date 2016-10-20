@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :posts, only: [:show, :new, :create]
+  post '/posts/:id/comments', to: 'posts#create_comment', as: 'comments'
 
   get 'feed/posts', to: 'feed#posts'
 

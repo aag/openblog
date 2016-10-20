@@ -23,7 +23,10 @@ de:
   activerecord:
     models:
       post: Artikel
+      comment: Kommentar
     attributes:
       post:
-        title: "Titel"
-        body: "Text"
+        title: Titel
+        body: Text
+      comment:
+        body: Text
