@@ -42,11 +42,7 @@ class Comment < ApplicationRecord
       return 0
     end
 
-    if new_record?
-      post.num_comments
-    else
-      post.num_comments_excluding(self)
-    end
+    post.num_comments_excluding(self)
   end
 
   def num_comments_today
@@ -54,10 +50,6 @@ class Comment < ApplicationRecord
       return 0
     end
 
-    if new_record?
-      post.num_comments_today
-    else
-      post.num_comments_today_excluding(self)
-    end
+    post.num_comments_today_excluding(self)
   end
 end

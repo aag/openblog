@@ -33,7 +33,11 @@ class Post < ApplicationRecord
   end
 
   def num_comments_excluding(comment)
-    comments.ham.where('id != :id', {id: comment.id}).count
+    if comment.new_record?
+      num_comments
+    else
+      comments.ham.where('id != :id', {id: comment.id}).count
+    end
   end
 
   def num_comments_today
@@ -51,11 +55,15 @@ class Post < ApplicationRecord
     beginning_of_day = Time.zone.now.beginning_of_day
     end_of_day = beginning_of_day.end_of_day
 
-    comments
-        .ham
-        .where('created_at >= :start_date AND created_at <= :end_date AND id != :id',
-               {start_date: beginning_of_day, end_date: end_of_day, id: comment.id})
-        .count
+    if comment.new_record?
+      num_comments_today
+    else
+      comments
+          .ham
+          .where('created_at >= :start_date AND created_at <= :end_date AND id != :id',
+                 {start_date: beginning_of_day, end_date: end_of_day, id: comment.id})
+          .count
+    end
   end
 
   def accepting_new_comments?
