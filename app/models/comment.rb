@@ -2,7 +2,7 @@ class Comment < ApplicationRecord
   belongs_to :post, inverse_of: :comments
 
   validates :body, presence: {message: 'ist ein Pflichtfeld'}
-  validates_format_of :body, with: /(\w+ ){4,}\w/, message: 'ist zu kurz (min. 5 Wörter)'
+  validates_format_of :body, with: /(\S+\s){4,}\S/, message: 'ist zu kurz (min. 5 Wörter)'
   validates_associated :post
 
   validate :max_comments_per_post, :max_comments_per_day

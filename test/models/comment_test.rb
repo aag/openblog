@@ -40,6 +40,13 @@ class CommentTest < ActiveSupport::TestCase
     assert comment.valid?
   end
 
+  test 'should be valid with 5 single-character umlaut words' do
+    post = Post.create(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
+    comment = Comment.new(post: post, body: 'ö ö ö ö ö', spam: false)
+
+    assert comment.valid?
+  end
+
   test 'should be invalid with empty body' do
     post = Post.create(title: 'Test Post Title', body: 'Test Body', published_at: Time.now)
     comment = Comment.new(post: post, body: '', spam: false)
