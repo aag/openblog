@@ -37,7 +37,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def overview
+  def index
     @posts = Post.published
                  .order(published_at: :desc)
 

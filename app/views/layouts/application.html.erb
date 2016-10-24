@@ -28,9 +28,9 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <% if controller_name == 'posts' && action_name == 'overview' %>
-          <li class="active"><a href="<%= posts_overview_path %>">Artikelübersicht</a></li>
+          <li class="active"><a href="<%= posts_path %>">Artikelübersicht</a></li>
         <% else %>
-          <li><a href="<%= posts_overview_path %>">Artikelübersicht</a></li>
+          <li><a href="<%= posts_path %>">Artikelübersicht</a></li>
         <% end %>
 
         <% if controller_name == 'admin' %>

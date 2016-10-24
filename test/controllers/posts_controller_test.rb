@@ -48,7 +48,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    get posts_overview_url
+    get posts_url
 
     comments = css_select('.mini-comment')
     assert_equal(10, comments.count)
